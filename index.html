@@ -151,8 +151,10 @@
         <h2 class="title is-3">Affordance</h2>
         <div class="content has-text-justified">
           <p>
-             Simulation parameters (lighting, object textures, actuator dynamics) are randomized to bridge the sim-to-real gap. A unified affordance-policy architecture ensures robustness to perceptual noise and mechanical uncertainties.
-          </p>
+             Affordance is defined as the actionable possibilities that objects offer an agent based on their intrinsic properties and the agent’s capabilities 
+. The Affordance Network encodes each affordance as a 3D contact point coupled with a motion trajectory, learning dual “where” and “how” representations from prior demonstrations. Static and dynamic alignment techniques match and adapt retrieved examples to novel objects, while a diffusion-based policy generates diverse yet precise candidate actions by conditioning on point clouds, joint states, and trajectory embeddings 
+. Affordance Memory organizes entries by task—each entry pairing a label, contact point, trajectory, visual embedding, and full scene point cloud—to enable rapid retrieval and geometric registration for generalization 
+. Finally, 3DAffordanceLLM reframes detection as an Instruction Reasoning Affordance Segmentation task, fusing point cloud and text embeddings in a transformer with a special token to output per-point affordance masks for open-vocabulary commands</p>
 
         
         </div>
@@ -165,8 +167,9 @@
         <h2 class="title is-3">Diffusion Policy</h2>
         <div class="content has-text-justified">
           <p>
-             Simulation parameters (lighting, object textures, actuator dynamics) are randomized to bridge the sim-to-real gap. A unified affordance-policy architecture ensures robustness to perceptual noise and mechanical uncertainties.
-          </p>
+            Diffusion Policy employs a denoising diffusion probabilistic model (DDPM) to learn a reverse process that transforms noisy sequences into smooth, physically plausible action trajectories. Trained on diverse Isaac Gym grasping scenarios—objects weighing 0.5–2.5 kg and measuring 10–20 cm—the model ensures smooth force transitions and balance preservation 
+. Real-time performance is achieved via adaptive noise scheduling and reduced sampling steps, with proprioceptive feedback guiding denoising to adapt to environmental variations 
+. The diffusion-generated commands are executed by an impedance-based whole-body controller that dynamically adjusts joint stiffness and damping based on predicted contact forces within a hierarchical task framework. Finally, a grasp pipeline uses low-stiffness probing to refine affordance maps before executing a high-stiffness force-closure grasp, demonstrating high success rates in both simulation and real-world trials</p>
 
         
         </div>
