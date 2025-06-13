@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="Generalizable Diffusion Policy with Transferable Affordance for Robotic Manipulation.">
+  <meta name="keywords" content="Diffusion Policy; Manipulation; Generalization">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- <title>Nerfies: Deformable Neural Radiance Fields</title> -->
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+
+    gtag('config', 'G-PYVRSFMDRL');
+  </script>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="icon" href="./static/images/file_1.svg">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+</head>
+<body>
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title"> 
+            <span style="background: -webkit-linear-gradient(left, rgb(227, 195, 209) , rgb(180, 199, 231)); -webkit-background-clip: text; color: transparent;">
+              Learning to Grasp
+            </span>
+            : Humanoid Robot Object Grasping with Reinforcement Learning
+          </h1>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <a href="https://fanyahao1.gitHub.io/">Yahao Fan</a><sup>1</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://zhenhao-zhang.gitHub.io/">Zhenhao Zhang</a><sup>1</sup>,
+            </span>
+            <span class="author-block">
+              <a>Qun Li</a><sup>1</sup>
+            </span>
+          </div>
+          
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><sup>1</sup>ShanghaiTech University</span>
+            <!-- <span class="author-block"><sup>2</sup>Google Research</span> -->
+          </div>
+       
+          
+    </div>
+  </div>
+</section>
+
+
+<!--/ Abstract. -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            Achieving robust object grasping with humanoid robots, while maintaining dynamic balance across diverse object geometries and weights, remains a significant challenge in dexterous manipulation. In this work, we present L2G (Learning to Grasp), a novel framework integrating affordance-guided perception with diffusion policy reinforcement learning to enable the G1 humanoid robot to autonomously grasp objects with varying physical properties (0.5-2.5 kg weight, 10-20 cm size). Our approach combines 3D visual affordance maps for task-oriented spatial reasoning with a diffusion-based policy that generates temporally consistent motion sequences, ensuring smooth force transitions and balance preservation. Leveraging NVIDIA Isaac Gym for multi-object simulation, we train the system to adaptively adjust grasping strategies through proprioceptive feedback and environmental affordances. The policy coordinates whole-body control through an impedance-based controller, dynamically optimizing contact forces and stability margins.  
+          </p>
+
+        
+        </div>
+      </div>
+    </div>
+
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Overview</h2>
+        <div class="content has-text-justified">
+          <p>
+            The L2G system is designed to enable the G1 humanoid robot to autonomously grasp diverse objects through a unified pipeline combining perception, policy learning, and dynamic execution. The framework operates in NVIDIA Isaac Gym, a GPU-accelerated simulation environment, which generates randomized training scenarios with objects varying in geometry (10–20 cm), weight (0.5–2.5 kg), and material properties. A multi-stage training protocol is employed.
+          </p>
+
+
+        
+        </div>
+      </div>
+    </div>
+
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Affordance Transfer Learning</h2>
+        <div class="content has-text-justified">
+          <p>
+             A shared neural network learns to predict grasp affordances (optimal contact regions) across object categories by correlating geometric features (extracted from RGB-D data) with physical constraints (mass, friction). This allows generalization to unseen objects by mapping latent affordance representations.
+          </p>
+
+        
+        </div>
+      </div>
+    </div>
+
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Policy Training with PPO</h2>
+        <div class="content has-text-justified">
+          <p>
+             A reinforcement learning agent, trained via Proximal Policy Optimization (PPO), generates whole-body motion sequences that balance grasp success and stability. The policy takes affordance maps, proprioceptive states, and environmental feedback as inputs, outputting coordinated arm trajectories and balance adjustments.
+          </p>
+
+        
+        </div>
+      </div>
+    </div>
+
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Domain-Randomized Adaptation</h2>
+        <div class="content has-text-justified">
+          <p>
+             Simulation parameters (lighting, object textures, actuator dynamics) are randomized to bridge the sim-to-real gap. A unified affordance-policy architecture ensures robustness to perceptual noise and mechanical uncertainties.
+          </p>
+
+        
+        </div>
+      </div>
+    </div>
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Affordance</h2>
+        <div class="content has-text-justified">
+          <p>
+             Simulation parameters (lighting, object textures, actuator dynamics) are randomized to bridge the sim-to-real gap. A unified affordance-policy architecture ensures robustness to perceptual noise and mechanical uncertainties.
+          </p>
+
+        
+        </div>
+      </div>
+    </div>
+
+
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Diffusion Policy</h2>
+        <div class="content has-text-justified">
+          <p>
+             Simulation parameters (lighting, object textures, actuator dynamics) are randomized to bridge the sim-to-real gap. A unified affordance-policy architecture ensures robustness to perceptual noise and mechanical uncertainties.
+          </p>
+
+        
+        </div>
+      </div>
+    </div>
+
+
+    <!-- <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Video</h2>
+        <div class="publication-video">
+          <iframe src="https://www.youtube.com/embed/4BiFEKbvJco?si=3JcDwPCNzDo7398g" 
+                  frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+        </div>
+      </div>
+    </div> -->
+    <!--/ Paper video. -->
+  </div>
+
+
+</section> 
+
+
+<!-- <section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 border-b-1px mb-4">Overview</h2>
+    <div class="container is-max-widescreen">
+      <div class="columns is-centered">
+        <div class="column is-four-fifths has-text-centered">
+          <figure class="image">
+            <img src="./static/images/overview.png"  class="image-size">
+          </figure>
+        </div>
+      </div>
+    </div>
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <div class="content has-text-justified">
+          <p>
+            Given the target scene RGB-D image,<span class="dnerf">AffordDP</span> retrieves a similar object in the affordance memory and transfers its static and dynamic affordance to the target object. 
+            Conditioned on 3D affordance, point cloud observation, and robot proprioception, <span class="dnerf">AffordDP</span> utilizes the Diffusion Policy and adaptive affordance guidance for precise control.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section> -->
+
+
+<div class="container is-max-desktop">
+  <h2 class="title is-3 border-b-1px mb-4">Real-World Results</h2>
+  <section class="hero is-light is-small">
+    <div class="hero-body">    
+      <div class="columns is-centered">
+        <div class="columns is-multiline is-variable is-2">
+          <div class="column is-12">
+          <p style="text-align: center;">
+            <img src="./static/images/image1.png" alt="Directional Weight Score" class="blend-img-background center-image" style="max-width: 24%; height: 150pt;" />
+         
+            <img src="./static/images/image2.png" alt="Directional Weight Score" class="blend-img-background center-image" style="max-width: 24%; height: 150pt;" />
+         
+            <img src="./static/images/image3.png" alt="Directional Weight Score" class="blend-img-background center-image" style="max-width: 24%; height: 150pt;" />
+        
+            <img src="./static/images/image4.png" alt="Directional Weight Score" class="blend-img-background center-image" style="max-width: 24%; height: 150pt;" />
+          </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <br>
+</div>
+
+<div class="container is-max-desktop">
+  <h2 class="title is-3 border-b-1px mb-4">Video Result</h2>
+  <section class="hero is-light is-small">
+    <div class="hero-body">    
+      <div class="columns is-centered">
+        <div class="columns is-multiline is-variable is-2">
+          <div class="column is-12">
+            <video style="width:100%; height:auto;" controls muted loading="lazy" autoplay loop playsinline>
+              <source src="./static/video/demo1.mp4" type="video/mp4">
+            </video>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <br>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<footer class="footer">
+    <div class="columns is-centered">
+        <div class="content">
+          <p>
+            This website is borrowed from <a href="https://afforddp.github.io">AffordDP</a>.
+          </p>
+        </div>
+    </div>
+</footer>
+
+</body>
+</html>
