@@ -64,18 +64,15 @@
               <a>Qun Li</a><sup>1</sup>
             </span>
           </div>
-          
-
           <div class="is-size-5 publication-authors">
             <span class="author-block"><sup>1</sup>ShanghaiTech University</span>
             <!-- <span class="author-block"><sup>2</sup>Google Research</span> -->
           </div>
-       
-          
+        </div>
+      </div>
     </div>
   </div>
 </section>
-
 
 <!--/ Abstract. -->
 <section class="section">
@@ -86,10 +83,8 @@
         <h2 class="title is-3">Abstract</h2>
         <div class="content has-text-justified">
           <p>
-            Achieving robust object grasping with humanoid robots, while maintaining dynamic balance across diverse object geometries and weights, remains a significant challenge in dexterous manipulation. In this work, we present L2G (Learning to Grasp), a novel framework integrating affordance-guided perception with diffusion policy reinforcement learning to enable the G1 humanoid robot to autonomously grasp objects with varying physical properties (0.5-2.5 kg weight, 10-20 cm size). Our approach combines 3D visual affordance maps for task-oriented spatial reasoning with a diffusion-based policy that generates temporally consistent motion sequences, ensuring smooth force transitions and balance preservation. Leveraging NVIDIA Isaac Gym for multi-object simulation, we train the system to adaptively adjust grasping strategies through proprioceptive feedback and environmental affordances. The policy coordinates whole-body control through an impedance-based controller, dynamically optimizing contact forces and stability margins.  
+            Achieving robust object grasping with humanoid robots, while maintaining dynamic balance across diverse object geometries and weights, remains a significant challenge in dexterous manipulation. In this work, we present L2G (Learning to Grasp), a novel framework integrating affordance-guided perception with diffusion policy reinforcement learning to enable the humanoid robot to autonomously grasp objects with varying physical properties (0.5-2.5 kg weight, 10-20 cm size). Our approach combines 3D visual affordance maps for task-oriented spatial reasoning with a diffusion-based policy that generates temporally consistent motion sequences, ensuring smooth force transitions and balance preservation. Leveraging NVIDIA Isaac Gym for multi-object simulation, we train the system to adaptively adjust grasping strategies through proprioceptive feedback and environmental affordances. The policy coordinates whole-body control through an impedance-based controller, dynamically optimizing contact forces and stability margins.  
           </p>
-
-        
         </div>
       </div>
     </div>
@@ -99,11 +94,8 @@
         <h2 class="title is-3">Overview</h2>
         <div class="content has-text-justified">
           <p>
-            The L2G system is designed to enable the G1 humanoid robot to autonomously grasp diverse objects through a unified pipeline combining perception, policy learning, and dynamic execution. The framework operates in NVIDIA Isaac Gym, a GPU-accelerated simulation environment, which generates randomized training scenarios with objects varying in geometry (10–20 cm), weight (0.5–2.5 kg), and material properties. A multi-stage training protocol is employed.
+            The L2G system is designed to enable the humanoid robot to autonomously grasp diverse objects through a unified pipeline combining perception, policy learning, and dynamic execution. The framework operates in NVIDIA Isaac Gym, a GPU-accelerated simulation environment, which generates randomized training scenarios with objects varying in geometry (10–20 cm), weight (0.5–2.5 kg), and material properties. A multi-stage training protocol is employed.
           </p>
-
-
-        
         </div>
       </div>
     </div>
@@ -115,8 +107,6 @@
           <p>
              A shared neural network learns to predict grasp affordances (optimal contact regions) across object categories by correlating geometric features (extracted from RGB-D data) with physical constraints (mass, friction). This allows generalization to unseen objects by mapping latent affordance representations.
           </p>
-
-        
         </div>
       </div>
     </div>
@@ -128,21 +118,6 @@
           <p>
              A reinforcement learning agent, trained via Proximal Policy Optimization (PPO), generates whole-body motion sequences that balance grasp success and stability. The policy takes affordance maps, proprioceptive states, and environmental feedback as inputs, outputting coordinated arm trajectories and balance adjustments.
           </p>
-
-        
-        </div>
-      </div>
-    </div>
-
-    <div class="columns is-centered has-text-centered">
-      <div class="column is-four-fifths">
-        <h2 class="title is-3">Domain-Randomized Adaptation</h2>
-        <div class="content has-text-justified">
-          <p>
-             Simulation parameters (lighting, object textures, actuator dynamics) are randomized to bridge the sim-to-real gap. A unified affordance-policy architecture ensures robustness to perceptual noise and mechanical uncertainties.
-          </p>
-
-        
         </div>
       </div>
     </div>
@@ -152,11 +127,9 @@
         <div class="content has-text-justified">
           <p>
              Affordance is defined as the actionable possibilities that objects offer an agent based on their intrinsic properties and the agent’s capabilities 
-. The Affordance Network encodes each affordance as a 3D contact point coupled with a motion trajectory, learning dual “where” and “how” representations from prior demonstrations. Static and dynamic alignment techniques match and adapt retrieved examples to novel objects, while a diffusion-based policy generates diverse yet precise candidate actions by conditioning on point clouds, joint states, and trajectory embeddings 
-. Affordance Memory organizes entries by task—each entry pairing a label, contact point, trajectory, visual embedding, and full scene point cloud—to enable rapid retrieval and geometric registration for generalization 
-. Finally, 3DAffordanceLLM reframes detection as an Instruction Reasoning Affordance Segmentation task, fusing point cloud and text embeddings in a transformer with a special token to output per-point affordance masks for open-vocabulary commands</p>
-
-        
+            . The Affordance Network encodes each affordance as a 3D contact point coupled with a motion trajectory, learning dual “where” and “how” representations from prior demonstrations. Static and dynamic alignment techniques match and adapt retrieved examples to novel objects, while a diffusion-based policy generates diverse yet precise candidate actions by conditioning on point clouds, joint states, and trajectory embeddings 
+            . Affordance Memory organizes entries by task—each entry pairing a label, contact point, trajectory, visual embedding, and full scene point cloud—to enable rapid retrieval and geometric registration for generalization 
+            . Finally, 3DAffordanceLLM reframes detection as an Instruction Reasoning Affordance Segmentation task, fusing point cloud and text embeddings in a transformer with a special token to output per-point affordance masks for open-vocabulary commands</p>
         </div>
       </div>
     </div>
@@ -167,91 +140,60 @@
         <h2 class="title is-3">Diffusion Policy</h2>
         <div class="content has-text-justified">
           <p>
-            Diffusion Policy employs a denoising diffusion probabilistic model (DDPM) to learn a reverse process that transforms noisy sequences into smooth, physically plausible action trajectories. Trained on diverse Isaac Gym grasping scenarios—objects weighing 0.5–2.5 kg and measuring 10–20 cm—the model ensures smooth force transitions and balance preservation 
-. Real-time performance is achieved via adaptive noise scheduling and reduced sampling steps, with proprioceptive feedback guiding denoising to adapt to environmental variations 
-. The diffusion-generated commands are executed by an impedance-based whole-body controller that dynamically adjusts joint stiffness and damping based on predicted contact forces within a hierarchical task framework. Finally, a grasp pipeline uses low-stiffness probing to refine affordance maps before executing a high-stiffness force-closure grasp, demonstrating high success rates in both simulation and real-world trials</p>
-
-        
+            Diffusion Policy employs a denoising diffusion probabilistic model (DDPM) to learn a reverse process that transforms noisy sequences into smooth, physically plausible action trajectories. Trained on diverse Isaac Gym grasping scenarios—objects weighing 0.5–2.5 kg and measuring 10–20 cm—the model ensures smooth force transitions and balance preservation. 
+            Real-time performance is achieved via adaptive noise scheduling and reduced sampling steps, with proprioceptive feedback guiding denoising to adapt to environmental variations.
+            The diffusion-generated commands are executed by an impedance-based whole-body controller that dynamically adjusts joint stiffness and damping based on predicted contact forces within a hierarchical task framework. Finally, a grasp pipeline uses low-stiffness probing to refine affordance maps before executing a high-stiffness force-closure grasp, demonstrating high success rates in both simulation and real-world trials</p>
         </div>
       </div>
     </div>
-
-
-    <!-- <div class="columns is-centered has-text-centered">
-      <div class="column is-four-fifths">
-        <h2 class="title is-3">Video</h2>
-        <div class="publication-video">
-          <iframe src="https://www.youtube.com/embed/4BiFEKbvJco?si=3JcDwPCNzDo7398g" 
-                  frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-        </div>
-      </div>
-    </div> -->
-    <!--/ Paper video. -->
   </div>
-
-
 </section> 
 
-
-<!-- <section class="section">
-  <div class="container is-max-desktop">
-    <h2 class="title is-3 border-b-1px mb-4">Overview</h2>
-    <div class="container is-max-widescreen">
-      <div class="columns is-centered">
-        <div class="column is-four-fifths has-text-centered">
-          <figure class="image">
-            <img src="./static/images/overview.png"  class="image-size">
-          </figure>
-        </div>
-      </div>
-    </div>
-    <div class="columns is-centered has-text-centered">
-      <div class="column is-four-fifths">
-        <div class="content has-text-justified">
-          <p>
-            Given the target scene RGB-D image,<span class="dnerf">AffordDP</span> retrieves a similar object in the affordance memory and transfers its static and dynamic affordance to the target object. 
-            Conditioned on 3D affordance, point cloud observation, and robot proprioception, <span class="dnerf">AffordDP</span> utilizes the Diffusion Policy and adaptive affordance guidance for precise control.
-          </p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section> -->
-
-
 <div class="container is-max-desktop">
-  <h2 class="title is-3 border-b-1px mb-4">Real-World Results</h2>
+  <h2 class="title is-3 border-b-1px mb-4">Real-World Results - Teleoperation</h2>
   <section class="hero is-light is-small">
-    <div class="hero-body">    
+    <div class="hero-body">
       <div class="columns is-centered">
         <div class="columns is-multiline is-variable is-2">
           <div class="column is-12">
-          <p style="text-align: center;">
-            <img src="./static/images/image1.png" alt="Directional Weight Score" class="blend-img-background center-image" style="max-width: 24%; height: 150pt;" />
-         
-            <img src="./static/images/image2.png" alt="Directional Weight Score" class="blend-img-background center-image" style="max-width: 24%; height: 150pt;" />
-         
-            <img src="./static/images/image3.png" alt="Directional Weight Score" class="blend-img-background center-image" style="max-width: 24%; height: 150pt;" />
-        
-            <img src="./static/images/image4.png" alt="Directional Weight Score" class="blend-img-background center-image" style="max-width: 24%; height: 150pt;" />
-          </p>
+          <video style="width:100%; height:auto;" controls muted loading="lazy" autoplay loop playsinline>
+              <source src="./static/video/Demo4.mp4" type="video/mp4">
+            </video>
           </div>
         </div>
       </div>
     </div>
   </section>
   <br>
-</div>
-
-<div class="container is-max-desktop">
-  <h2 class="title is-3 border-b-1px mb-4">Video Result</h2>
+  <h2 class="title is-3 border-b-1px mb-4">Real-World Result - Reinforcement Learning Locomotion</h2>
   <section class="hero is-light is-small">
     <div class="hero-body">    
       <div class="columns is-centered">
         <div class="columns is-multiline is-variable is-2">
           <div class="column is-12">
             <video style="width:100%; height:auto;" controls muted loading="lazy" autoplay loop playsinline>
-              <source src="./static/video/demo1.mp4" type="video/mp4">
+              <source src="./static/video/Demo3.mp4" type="video/mp4">
+            </video>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <br>
+  <h2 class="title is-3 border-b-1px mb-4">Real-World Result - Diffusion Policy</h2>
+  <section class="hero is-light is-small">
+    <div class="hero-body">    
+      <div class="columns is-centered">
+        <div class="columns is-multiline is-variable is-2">
+          <div class="column is-12">
+            <br>
+            <video style="width:100%; height:auto;" controls muted loading="lazy" autoplay loop playsinline>
+              <source src="./static/video/Demo1.mp4" type="video/mp4">
+            </video>
+            <br>
+
+            <video style="width:100%; height:auto;" controls muted loading="lazy" autoplay loop playsinline>
+              <source src="./static/video/Demo2.mp4" type="video/mp4">
             </video>
           </div>
         </div>
@@ -260,29 +202,6 @@
   </section>
   <br>
 </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 <footer class="footer">
     <div class="columns is-centered">
